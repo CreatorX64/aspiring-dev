@@ -24,7 +24,7 @@ export function ChallengeCard({ challenge }) {
   return (
     <div
       onClick={() => navigate(`/challenge-details/${id}`)}
-      className={`group flex min-h-[430px] flex-1 grow-0 basis-80 cursor-pointer flex-col overflow-hidden rounded-[20px] bg-white py-9 px-11 shadow-md shadow-slate-200 transition hover:-translate-y-2 hover:shadow-lg`}
+      className={`group flex flex-1 grow-0 basis-80 cursor-pointer flex-col overflow-hidden rounded-[20px] bg-white py-9 px-11 shadow-md shadow-slate-200 transition hover:-translate-y-2 hover:shadow-lg md:min-h-[430px]`}
     >
       <div className="flex items-start justify-between">
         <span className="text-5xl">{icon}</span>
@@ -49,9 +49,9 @@ export function ChallengeCard({ challenge }) {
         </span>
       </p>
 
-      <p className="mt-7 line-clamp-4">{description}</p>
+      <p className="mt-6 line-clamp-4 md:mt-7">{description}</p>
 
-      <div className="mt-auto flex items-center justify-between">
+      <div className="mt-8 flex items-center justify-between md:mt-auto">
         <div className="h-16 w-16">
           <CircularProgressbar
             value={progressValue}

@@ -10,7 +10,7 @@ export function Navigation() {
   const { user, login, logout } = useAuthContext();
 
   return user ? (
-    <header className="mb-24 h-52 bg-slate-800 text-slate-100">
+    <header className="mb-14 h-52 bg-slate-800 text-slate-100 md:mb-24">
       <div className="container flex h-full flex-col items-center justify-between pt-8 lg:flex-row lg:items-end lg:pt-0">
         {/* Profile info */}
         <div className="flex items-center lg:items-end">

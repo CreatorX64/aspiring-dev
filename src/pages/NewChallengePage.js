@@ -87,7 +87,7 @@ export function NewChallengePage() {
       </h1>
 
       {/* Content Card */}
-      <div className="mx-auto max-w-2xl rounded-3xl bg-white px-12 py-9 shadow-md shadow-slate-200">
+      <div className="mx-auto max-w-2xl rounded-3xl bg-white px-8 py-9 shadow-md shadow-slate-200 md:px-12">
         {formError && (
           <div className="mb-10 w-full rounded-lg bg-red-50 px-4 py-3 font-semibold text-red-600">
             <p>{formError}</p>
@@ -105,7 +105,8 @@ export function NewChallengePage() {
             >
               {isPickerVisible && (
                 <Picker
-                  className="absolute top-0 left-0"
+                  className="absolute top-0 -left-[20px] md:left-0"
+                  style={{ position: "absolute", top: "12px", left: "-28px" }}
                   title="Pick your emoji"
                   onSelect={handleEmojiPick}
                 />
@@ -208,11 +209,11 @@ export function NewChallengePage() {
           </div>
 
           <div className="mt-14">
-            <button className="btn" disabled={loading}>
+            <button className="btn w-full md:w-auto" disabled={loading}>
               {loading ? "Loading..." : "Create challenge"}
             </button>
             <button
-              className="ml-9 font-semibold text-slate-500"
+              className="w-full py-6 font-semibold text-slate-500 md:ml-9 md:w-auto md:py-0"
               onClick={() => navigate("/dashboard")}
               type="button"
             >

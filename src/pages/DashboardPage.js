@@ -26,7 +26,7 @@ export function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex items-end justify-center pt-36">
+      <div className="pt-18 flex items-end justify-center md:pt-36">
         <MutatingDots
           height="100"
           width="100"
@@ -51,7 +51,7 @@ export function DashboardPage() {
         <div className="flex flex-wrap justify-center gap-10">
           <div
             onClick={() => navigate("/new-challenge")}
-            className="group flex min-h-[430px] flex-1 grow-0 basis-80 cursor-pointer flex-col items-center justify-center space-y-2 rounded-[20px] border border-slate-300 py-9 px-11 transition hover:bg-slate-200"
+            className="group flex min-h-[200px] flex-1 grow-0 basis-80 cursor-pointer flex-col items-center justify-center space-y-2 rounded-[20px] border border-slate-300 py-9 px-11 transition hover:bg-slate-200 md:min-h-[430px]"
           >
             <PlusCircleIcon className="h-16 w-16 text-slate-300 transition group-hover:text-slate-400" />
             <p className="text-xl font-semibold text-slate-400 transition group-hover:text-slate-500">

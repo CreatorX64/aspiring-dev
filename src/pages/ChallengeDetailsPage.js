@@ -9,6 +9,7 @@ import Modal from "react-modal";
 
 import { GET_CHALLENGE_BY_ID, CREATE_CHALLENGE_ENTRY } from "../lib/queries";
 import { ErrorMessage } from "../components/ErrorMessage";
+import { EntryLine } from "../components/EntryLine";
 
 // Modal configuration
 Modal.setAppElement("#root");
@@ -129,9 +130,9 @@ export function ChallengeDetailsPage() {
       </Link>
 
       {/* Content Card */}
-      <div className="mx-auto max-w-2xl rounded-3xl bg-white px-12 py-9 shadow-md shadow-slate-200">
+      <div className="mx-auto max-w-2xl rounded-3xl bg-white  px-8 py-9 shadow-md shadow-slate-200 md:px-12">
         <div className="mb-9 flex justify-between">
-          <p className="text-5xl">{icon}</p>
+          <p className="text-4xl md:text-5xl">{icon}</p>
 
           {/* If all entries are submitted, show completion message */}
           {total_entries === entries_count ? (
@@ -153,7 +154,9 @@ export function ChallengeDetailsPage() {
           {frequency}
         </div>
 
-        <h1 className="mt-3 mb-3 text-3xl font-extrabold">{title}</h1>
+        <h1 className="mt-3 mb-3 text-2xl font-extrabold md:text-3xl">
+          {title}
+        </h1>
 
         <p className="flex items-center space-x-1 text-sm text-gray-400">
           <ClockIcon className="h-5 w-5" />
@@ -167,9 +170,9 @@ export function ChallengeDetailsPage() {
 
         <p className="mt-8">{description}</p>
 
-        <h2 className="mt-14 text-xl font-bold">Progress</h2>
+        <h2 className="mt-12 text-xl font-bold md:mt-14">Progress</h2>
 
-        <div className="mt-8 flex gap-12">
+        <div className="mt-6 flex gap-12 md:mt-8">
           <div className="h-20 w-20">
             <CircularProgressbar
               value={progressValue}
@@ -195,7 +198,9 @@ export function ChallengeDetailsPage() {
           </ul>
         </div>
 
-        <h2 className="mt-14 text-xl font-bold">Challenge entry history</h2>
+        <h2 className="mt-12 text-xl font-bold md:mt-14">
+          Challenge entry history
+        </h2>
 
         <div className="mt-7">
           {entries_count === 0 ? (
@@ -203,20 +208,11 @@ export function ChallengeDetailsPage() {
               You haven't submitted any entries yet.
             </p>
           ) : (
-            <ul>
+            <div>
               {entries.map((entry) => (
-                <li
-                  key={entry.id}
-                  className="rounded-md border p-2 font-bold text-slate-500 transition hover:bg-slate-50"
-                  title={entry.message}
-                >
-                  <span className="mr-3 text-sm font-normal text-slate-400">
-                    {format(new Date(entry.created_at), "MMM d, yyyy")}
-                  </span>
-                  <span className="line-clamp-1">{entry.message}</span>
-                </li>
+                <EntryLine key={entry.id} entry={entry} />
               ))}
-            </ul>
+            </div>
           )}
         </div>
       </div>
@@ -227,12 +223,12 @@ export function ChallengeDetailsPage() {
         style={modalStyles}
         contentLabel="Add new challenge entry"
       >
-        <div className="min-w-[500px] px-10 py-8 font-brand">
+        <div className="min-w-[500px] px-4 py-4 font-brand md:px-10 md:py-8">
           {errorEntry ? (
             <ErrorMessage error={errorEntry} className="py-0" />
           ) : (
             <>
-              <h2 className="mb-8 font-brand text-2xl font-extrabold">
+              <h2 className="mb-8 font-brand text-xl font-extrabold md:text-2xl">
                 Add new challenge entry
               </h2>
 
@@ -244,7 +240,7 @@ export function ChallengeDetailsPage() {
                   type="text"
                   name="message"
                   id="message"
-                  className="form-input"
+                  className="form-input w-auto md:w-full"
                   placeholder="Today, I coded a new feature for my React app..."
                   value={modalMessage}
                   onChange={handleModalMessageChange}

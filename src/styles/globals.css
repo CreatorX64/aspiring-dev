@@ -16,10 +16,17 @@
   }
 
   .btn {
-    @apply rounded-lg bg-gradient-to-r from-indigo-400 to-indigo-700 px-7 py-3 text-lg font-semibold text-white;
+    @apply rounded-lg bg-gradient-to-r from-indigo-400 to-indigo-700 px-5 py-2 text-base font-semibold text-white md:px-7 md:py-3 md:text-lg;
   }
 }
 
 .active {
   @apply font-extrabold text-slate-100;
+}
+
+@media only screen and (max-width: 770px) {
+  .ReactModal__Content {
+    max-width: 80%;
+    height: auto;
+  }
 }
