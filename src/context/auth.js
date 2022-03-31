@@ -45,14 +45,9 @@ export function AuthContextProvider({ children }) {
   }, []);
 
   async function login() {
-    const { user } = await supabase.auth.signIn(
-      {
-        provider: "github"
-      },
-      {
-        redirectTo: `${process.env.REACT_APP_ROOT_URL}/dashboard`
-      }
-    );
+    const { user } = await supabase.auth.signIn({
+      provider: "github"
+    });
     apolloClient.resetStore();
     dispatch({ type: LOGIN, payload: user });
   }
