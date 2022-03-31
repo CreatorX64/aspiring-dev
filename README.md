@@ -1,4 +1,4 @@
-# Aspiring.Dev
+# Aspiring.Dev — Challenge tracking made easy
 
 ![Screen recording of the app](./assets/screen.gif)
 
