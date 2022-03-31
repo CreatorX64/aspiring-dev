@@ -81,3 +81,19 @@ export const CREATE_CHALLENGE_ENTRY = gql`
     }
   }
 `;
+
+export const DELETE_CHALLENGE = gql`
+  mutation DeleteChallenge($id: uuid!) {
+    delete_challenges_by_pk(id: $id) {
+      id
+    }
+  }
+`;
+
+export const DELETE_PROFILE = gql`
+  mutation DeleteProfile($id: uuid!) {
+    delete_profiles_by_pk(id: $id) {
+      id
+    }
+  }
+`;

@@ -1,15 +1,20 @@
 import { useQuery, useMutation } from "@apollo/client";
-import { ClockIcon } from "@heroicons/react/outline";
+import { ClockIcon, TrashIcon } from "@heroicons/react/outline";
 import { formatDistance, format } from "date-fns";
 import { useEffect, useState, useLayoutEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { MutatingDots } from "react-loader-spinner";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import Modal from "react-modal";
 
-import { GET_CHALLENGE_BY_ID, CREATE_CHALLENGE_ENTRY } from "../lib/queries";
+import {
+  GET_CHALLENGE_BY_ID,
+  CREATE_CHALLENGE_ENTRY,
+  DELETE_CHALLENGE
+} from "../lib/queries";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { EntryLine } from "../components/EntryLine";
+import { NotFound } from "../components/NotFound";
 
 // Modal configuration
 Modal.setAppElement("#root");
@@ -27,6 +32,7 @@ const modalStyles = {
 
 export function ChallengeDetailsPage() {
   const { challengeId } = useParams();
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
@@ -45,6 +51,13 @@ export function ChallengeDetailsPage() {
     refetchQueries: ["GetChallengeById"]
   });
 
+  const [
+    deleteChallenge,
+    { loading: loadingDelete, error: errorDelete, data: dataDelete }
+  ] = useMutation(DELETE_CHALLENGE, {
+    refetchQueries: ["GetChallenges"]
+  });
+
   // React router persists the scroll position in the New Challenge page when we
   // click "cancel". This is the briefest solution I can think of RN to remedy
   // that issue. Creating a HOC is an option, but duplication is not that much
@@ -60,6 +73,13 @@ export function ChallengeDetailsPage() {
       setModalMessage("");
     }
   }, [errorEntry, loadingEntry, dataEntry]);
+
+  // Redirect to dashboard once challenge deletion completes
+  useEffect(() => {
+    if (!loadingDelete && !errorDelete && dataDelete) {
+      navigate("/dashboard");
+    }
+  }, [loadingDelete, errorDelete, dataDelete, navigate]);
 
   if (errorChallenge) {
     return <ErrorMessage error={errorChallenge} />;
@@ -78,6 +98,28 @@ export function ChallengeDetailsPage() {
       </div>
     );
   }
+
+  if (!errorChallenge && !loadingChallenge && !dataChallenge.challenges_by_pk) {
+    return <NotFound />;
+  }
+
+  const {
+    challenges_by_pk: {
+      id,
+      created_at,
+      description,
+      frequency,
+      icon,
+      title,
+      total_entries,
+      entries,
+      entries_aggregate: {
+        aggregate: { count: entries_count }
+      }
+    }
+  } = dataChallenge;
+
+  const progressValue = Math.floor((entries_count / total_entries) * 100);
 
   function openModal() {
     setIsModalOpen(true);
@@ -102,32 +144,25 @@ export function ChallengeDetailsPage() {
     });
   }
 
-  const {
-    challenges_by_pk: {
-      id,
-      created_at,
-      description,
-      frequency,
-      icon,
-      title,
-      total_entries,
-      entries,
-      entries_aggregate: {
-        aggregate: { count: entries_count }
-      }
-    }
-  } = dataChallenge;
-
-  const progressValue = Math.floor((entries_count / total_entries) * 100);
+  function handleDelete() {
+    deleteChallenge({ variables: { id } });
+  }
 
   return (
-    <div className="container pb-40">
-      <Link
-        to="/dashboard"
-        className="mx-auto mb-5 block w-full max-w-2xl text-slate-400"
-      >
-        ← Go back
-      </Link>
+    <div className="container pb-28">
+      <div className="mx-auto mb-5 flex w-full max-w-2xl justify-between">
+        <Link to="/dashboard" className="block text-slate-400">
+          ← Go back
+        </Link>
+        <button
+          className="flex cursor-pointer items-center gap-2 text-slate-400 transition hover:text-red-400"
+          disabled={loadingDelete}
+          onClick={handleDelete}
+        >
+          <TrashIcon className="h-5 w-5" />
+          <span>{loadingDelete ? "Deleting..." : "Delete challenge"}</span>
+        </button>
+      </div>
 
       {/* Content Card */}
       <div className="mx-auto max-w-2xl rounded-3xl bg-white  px-8 py-9 shadow-md shadow-slate-200 md:px-12">

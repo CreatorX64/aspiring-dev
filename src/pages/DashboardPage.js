@@ -7,6 +7,7 @@ import { MutatingDots } from "react-loader-spinner";
 import { ChallengeCard } from "../components/ChallengeCard";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { GET_CHALLENGES } from "../lib/queries";
+import { AccountSettings } from "../components/AccountSettings";
 
 export function DashboardPage() {
   const { error, loading, data } = useQuery(GET_CHALLENGES);
@@ -39,9 +40,9 @@ export function DashboardPage() {
   }
 
   return (
-    <div className="container pb-40">
+    <div className="container pb-28">
       {/* Current challanges */}
-      <div>
+      <div className="pb-36">
         <h2 className="mb-9 text-center text-2xl font-bold">
           {data.challenges.length === 0
             ? "You don't have any challenges yet  🐣"
@@ -64,6 +65,9 @@ export function DashboardPage() {
           })}
         </div>
       </div>
+
+      {/* Account settings */}
+      <AccountSettings />
     </div>
   );
 }
