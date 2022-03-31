@@ -6,6 +6,18 @@
   .container {
     @apply mx-auto max-w-6xl px-6;
   }
+
+  .form-label {
+    @apply mb-3 block text-lg font-bold;
+  }
+
+  .form-input {
+    @apply block w-full rounded-xl bg-sky-50 px-6 py-4 shadow-inner placeholder:text-slate-400 focus:outline-none;
+  }
+
+  .btn {
+    @apply rounded-lg bg-gradient-to-r from-indigo-400 to-indigo-700 px-7 py-3 text-lg font-semibold text-white;
+  }
 }
 
 .active {

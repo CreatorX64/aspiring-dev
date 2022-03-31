@@ -1,33 +1,24 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { PlusCircleIcon } from "@heroicons/react/outline";
+import { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MutatingDots } from "react-loader-spinner";
 
 import ChallengeCard from "../components/ChallengeCard";
 import ErrorMessage from "../components/ErrorMessage";
-
-const GET_CHALLENGES = gql`
-  query {
-    challenges {
-      id
-      icon
-      frequency
-      title
-      created_at
-      description
-      total_entries
-      entries_aggregate {
-        aggregate {
-          count
-        }
-      }
-    }
-  }
-`;
+import { GET_CHALLENGES } from "../lib/queries";
 
 export default function DashboardPage() {
   const { error, loading, data } = useQuery(GET_CHALLENGES);
   const navigate = useNavigate();
+
+  // React router persists the scroll position in the New Challenge page when we
+  // click "cancel". This is the briefest solution I can think of RN to remedy
+  // that issue. Creating a HOC is an option, but duplication is not that much
+  // of a problem at the moment.
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (error) {
     return <ErrorMessage error={error} />;

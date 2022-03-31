@@ -5,6 +5,7 @@ import Layout from "./Layout";
 import HomePage from "../pages/HomePage";
 import DashboardPage from "../pages/DashboardPage";
 import NewChallengePage from "../pages/NewChallengePage";
+import ChallengeDetailsPage from "../pages/ChallengeDetailsPage";
 
 export default function App() {
   const { user, isAuthReady } = useAuthContext();
@@ -26,6 +27,11 @@ export default function App() {
           <Route
             path="/new-challenge"
             element={user ? <NewChallengePage /> : <Navigate to="/" />}
+          />
+
+          <Route
+            path="/challenge-details/:challengeId"
+            element={user ? <ChallengeDetailsPage /> : <Navigate to="/" />}
           />
         </Routes>
       </Layout>

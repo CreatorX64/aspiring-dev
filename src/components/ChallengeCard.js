@@ -1,10 +1,13 @@
 import { formatDistance } from "date-fns";
 import { ClockIcon, ArrowRightIcon } from "@heroicons/react/outline";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { useNavigate } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 
 export default function ChallengeCard({ challenge }) {
+  const navigate = useNavigate();
   const {
+    id,
     title,
     icon,
     frequency,
@@ -20,6 +23,7 @@ export default function ChallengeCard({ challenge }) {
 
   return (
     <div
+      onClick={() => navigate(`/challenge-details/${id}`)}
       className={`group flex min-h-[430px] flex-1 grow-0 basis-80 cursor-pointer flex-col overflow-hidden rounded-[20px] bg-white py-9 px-11 shadow-md shadow-slate-200 transition hover:-translate-y-2 hover:shadow-lg`}
     >
       <div className="flex items-start justify-between">
@@ -33,7 +37,7 @@ export default function ChallengeCard({ challenge }) {
         </span>
       </div>
 
-      <h3 className="mt-8 mb-1 text-xl font-bold">{title}</h3>
+      <h3 className="mt-8 mb-1 text-xl font-bold line-clamp-1">{title}</h3>
 
       <p className="flex items-center space-x-1 text-sm text-gray-400">
         <ClockIcon className="h-5 w-5" />
