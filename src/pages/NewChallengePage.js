@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Picker } from "emoji-mart";
@@ -7,10 +7,13 @@ import "emoji-mart/css/emoji-mart.css";
 
 import { validateCreateChallengeForm } from "../lib/helpers";
 import { ErrorMessage } from "../components/ErrorMessage";
-import { CREATE_CHALLENGE } from "../lib/queries";
+import { CREATE_CHALLENGE, GET_CHALLENGES } from "../lib/queries";
 
 export function NewChallengePage() {
   const navigate = useNavigate();
+
+  // https://github.com/apollographql/apollo-client/issues/5419#issuecomment-973154976
+  const { error: e, loading: l, data: d } = useQuery(GET_CHALLENGES);
 
   const [createChallenge, { data, loading, error }] = useMutation(
     CREATE_CHALLENGE,
