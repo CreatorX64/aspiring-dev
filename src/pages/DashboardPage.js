@@ -42,14 +42,15 @@ export function DashboardPage() {
   return (
     <div className="container pb-28">
       {/* Current challanges */}
-      <div className="pb-36">
+      <div className="mx-auto max-w-md pb-36 md:max-w-3xl lg:max-w-none">
         <h2 className="mb-9 text-center text-2xl font-bold">
           {data.challenges.length === 0
             ? "You don't have any challenges yet  🐣"
             : "Your current challanges"}
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-10">
+        {/* <div className="flex flex-wrap justify-center gap-10"> */}
+        <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 lg:grid-cols-3">
           <div
             onClick={() => navigate("/new-challenge")}
             className="group flex min-h-[200px] flex-1 grow-0 basis-80 cursor-pointer flex-col items-center justify-center space-y-2 rounded-[20px] border border-slate-300 py-9 px-11 transition hover:bg-slate-200 md:min-h-[430px]"
