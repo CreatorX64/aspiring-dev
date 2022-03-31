@@ -42,13 +42,13 @@ export function DashboardPage() {
     <div className="container">
       {/* Current challanges */}
       <div>
-        <h2 className="mb-9 text-2xl font-bold">
+        <h2 className="mb-9 text-center text-2xl font-bold">
           {data.challenges.length === 0
             ? "You don't have any challenges yet  🐣"
             : "Your current challanges"}
         </h2>
 
-        <div className="flex flex-wrap gap-10">
+        <div className="flex flex-wrap justify-center gap-10">
           <div
             onClick={() => navigate("/new-challenge")}
             className="group flex min-h-[430px] flex-1 grow-0 basis-80 cursor-pointer flex-col items-center justify-center space-y-2 rounded-[20px] border border-slate-300 py-9 px-11 transition hover:bg-slate-200"
