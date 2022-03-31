@@ -13,7 +13,7 @@ export function NewChallengePage() {
   const navigate = useNavigate();
 
   // https://github.com/apollographql/apollo-client/issues/5419#issuecomment-973154976
-  const { error: e, loading: l, data: d } = useQuery(GET_CHALLENGES);
+  useQuery(GET_CHALLENGES);
 
   const [createChallenge, { data, loading, error }] = useMutation(
     CREATE_CHALLENGE,
