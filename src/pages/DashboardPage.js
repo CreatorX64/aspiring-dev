@@ -4,11 +4,11 @@ import { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MutatingDots } from "react-loader-spinner";
 
-import ChallengeCard from "../components/ChallengeCard";
-import ErrorMessage from "../components/ErrorMessage";
+import { ChallengeCard } from "../components/ChallengeCard";
+import { ErrorMessage } from "../components/ErrorMessage";
 import { GET_CHALLENGES } from "../lib/queries";
 
-export default function DashboardPage() {
+export function DashboardPage() {
   const { error, loading, data } = useQuery(GET_CHALLENGES);
   const navigate = useNavigate();
 

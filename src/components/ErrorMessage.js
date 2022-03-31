@@ -1,6 +1,6 @@
 import { CursorClickIcon } from "@heroicons/react/outline";
 
-export default function ErrorMessage({ error, className = "" }) {
+export function ErrorMessage({ error, className = "" }) {
   return (
     <div className={`mx-auto max-w-xl space-y-6 py-24 ${className}`}>
       <h2 className="text-3xl font-bold">Something went wrong 😓</h2>

@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 
+import { AuthContextProvider } from "./context/auth";
+import { App } from "./components/App";
 import "./styles/globals.css";
-import App from "./components/App";
-import { AuthContextProvider } from "./context/auth-context";
 
 ReactDOM.render(
   <React.StrictMode>

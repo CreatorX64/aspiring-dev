@@ -4,7 +4,7 @@ import { createContext, useReducer, useEffect } from "react";
 import { supabase } from "../lib/supabase-client";
 import { apolloClient } from "../lib/apollo-client";
 
-// Auth reducer & action types
+// Auth action types & auth reducer
 
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
@@ -23,12 +23,12 @@ function authReducer(state, action) {
   }
 }
 
-// Auth context & auth context provider
-
 const initialState = {
   user: null,
   isAuthReady: false
 };
+
+// Auth context & auth context provider
 
 export const AuthContext = createContext();
 

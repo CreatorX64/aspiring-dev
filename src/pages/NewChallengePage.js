@@ -6,10 +6,10 @@ import { EmojiHappyIcon } from "@heroicons/react/outline";
 import "emoji-mart/css/emoji-mart.css";
 
 import { validateCreateChallengeForm } from "../lib/helpers";
-import ErrorMessage from "../components/ErrorMessage";
+import { ErrorMessage } from "../components/ErrorMessage";
 import { CREATE_CHALLENGE } from "../lib/queries";
 
-export default function NewChallengePage() {
+export function NewChallengePage() {
   const navigate = useNavigate();
 
   const [createChallenge, { data, loading, error }] = useMutation(
@@ -27,7 +27,7 @@ export default function NewChallengePage() {
     frequency: ""
   });
 
-  // After the mutation, redirect to dashboard if no errors.
+  // After challenge creation, redirect to dashboard if no errors
   useEffect(() => {
     if (!error && !loading && data) {
       navigate("/dashboard");

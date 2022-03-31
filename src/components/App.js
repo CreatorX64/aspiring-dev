@@ -1,13 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { useAuthContext } from "../hooks/useAuthContext";
-import Layout from "./Layout";
-import HomePage from "../pages/HomePage";
-import DashboardPage from "../pages/DashboardPage";
-import NewChallengePage from "../pages/NewChallengePage";
-import ChallengeDetailsPage from "../pages/ChallengeDetailsPage";
+import { Layout } from "./Layout";
+import { HomePage } from "../pages/HomePage";
+import { DashboardPage } from "../pages/DashboardPage";
+import { NewChallengePage } from "../pages/NewChallengePage";
+import { ChallengeDetailsPage } from "../pages/ChallengeDetailsPage";
 
-export default function App() {
+export function App() {
   const { user, isAuthReady } = useAuthContext();
 
   return (

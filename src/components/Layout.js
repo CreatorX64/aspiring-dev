@@ -1,7 +1,7 @@
-import Navigation from "./Navigation";
-import Footer from "./Footer";
+import { Navigation } from "./Navigation";
+import { Footer } from "./Footer";
 
-export default function Layout({ children }) {
+export function Layout({ children }) {
   return (
     <div className="bg-slate-100 font-brand text-slate-800">
       <Navigation />

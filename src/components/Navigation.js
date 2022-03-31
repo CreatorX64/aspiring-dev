@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-export default function Navigation() {
+export function Navigation() {
   const { user, login, logout } = useAuthContext();
 
   return user ? (

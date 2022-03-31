@@ -1,4 +1,4 @@
-export default function Footer() {
+export function Footer() {
   return (
     <div>
       <p>This is the footer!</p>

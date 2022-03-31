@@ -1,14 +1,14 @@
 import { useQuery, useMutation } from "@apollo/client";
+import { ClockIcon } from "@heroicons/react/outline";
 import { formatDistance, format } from "date-fns";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MutatingDots } from "react-loader-spinner";
-import { ClockIcon } from "@heroicons/react/outline";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import Modal from "react-modal";
 
 import { GET_CHALLENGE_BY_ID, CREATE_CHALLENGE_ENTRY } from "../lib/queries";
-import ErrorMessage from "../components/ErrorMessage";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 // Modal configuration
 Modal.setAppElement("#root");
@@ -24,14 +24,19 @@ const modalStyles = {
   }
 };
 
-export default function ChallengeDetailsPage() {
+export function ChallengeDetailsPage() {
+  const { challengeId } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
-  const { challengeId } = useParams();
-  const { loading, error, data } = useQuery(GET_CHALLENGE_BY_ID, {
+  const {
+    loading: loadingChallenge,
+    error: errorChallenge,
+    data: dataChallenge
+  } = useQuery(GET_CHALLENGE_BY_ID, {
     variables: { id: challengeId }
   });
+
   const [
     createChallengeEntry,
     { loading: loadingEntry, error: errorEntry, data: dataEntry }
@@ -39,6 +44,15 @@ export default function ChallengeDetailsPage() {
     refetchQueries: ["GetChallengeById"]
   });
 
+  // React router persists the scroll position in the New Challenge page when we
+  // click "cancel". This is the briefest solution I can think of RN to remedy
+  // that issue. Creating a HOC is an option, but duplication is not that much
+  // of a problem at the moment.
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Close the modal after challenge entry is successfully submitted
   useEffect(() => {
     if (!errorEntry && !loadingEntry && dataEntry) {
       setIsModalOpen(false);
@@ -46,11 +60,11 @@ export default function ChallengeDetailsPage() {
     }
   }, [errorEntry, loadingEntry, dataEntry]);
 
-  if (error) {
-    return <ErrorMessage error={error} />;
+  if (errorChallenge) {
+    return <ErrorMessage error={errorChallenge} />;
   }
 
-  if (loading) {
+  if (loadingChallenge) {
     return (
       <div className="flex items-end justify-center pt-36">
         <MutatingDots
@@ -63,22 +77,6 @@ export default function ChallengeDetailsPage() {
       </div>
     );
   }
-
-  const {
-    challenges_by_pk: {
-      id,
-      created_at,
-      description,
-      frequency,
-      icon,
-      title,
-      total_entries,
-      entries,
-      entries_aggregate: {
-        aggregate: { count: entries_count }
-      }
-    }
-  } = data;
 
   function openModal() {
     setIsModalOpen(true);
@@ -103,6 +101,22 @@ export default function ChallengeDetailsPage() {
     });
   }
 
+  const {
+    challenges_by_pk: {
+      id,
+      created_at,
+      description,
+      frequency,
+      icon,
+      title,
+      total_entries,
+      entries,
+      entries_aggregate: {
+        aggregate: { count: entries_count }
+      }
+    }
+  } = dataChallenge;
+
   const progressValue = Math.floor((entries_count / total_entries) * 100);
 
   return (
@@ -119,6 +133,7 @@ export default function ChallengeDetailsPage() {
         <div className="mb-9 flex justify-between">
           <p className="text-5xl">{icon}</p>
 
+          {/* If all entries are submitted, show completion message */}
           {total_entries === entries_count ? (
             <p className="rounded-lg bg-green-100 px-7 py-3 text-lg font-semibold text-green-600">
               Challenge completed!

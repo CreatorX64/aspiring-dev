@@ -4,7 +4,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { useNavigate } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 
-export default function ChallengeCard({ challenge }) {
+export function ChallengeCard({ challenge }) {
   const navigate = useNavigate();
   const {
     id,
