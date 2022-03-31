@@ -67,7 +67,7 @@ export function ChallengeDetailsPage() {
 
   if (loadingChallenge) {
     return (
-      <div className="flex items-end justify-center pt-36">
+      <div className="flex items-end justify-center pt-36 pb-40">
         <MutatingDots
           height="100"
           width="100"
@@ -121,7 +121,7 @@ export function ChallengeDetailsPage() {
   const progressValue = Math.floor((entries_count / total_entries) * 100);
 
   return (
-    <div className="container">
+    <div className="container pb-40">
       <Link
         to="/dashboard"
         className="mx-auto mb-5 block w-full max-w-2xl text-slate-400"

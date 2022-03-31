@@ -81,7 +81,7 @@ export function NewChallengePage() {
   }
 
   return (
-    <div className="container">
+    <div className="container pb-40">
       <h1 className="mb-9 text-center text-2xl font-extrabold">
         Add New Challenge
       </h1>

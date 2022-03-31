@@ -26,7 +26,7 @@ export function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="pt-18 flex items-end justify-center md:pt-36">
+      <div className="pt-18 flex items-end justify-center pb-40 md:pt-28">
         <MutatingDots
           height="100"
           width="100"
@@ -39,7 +39,7 @@ export function DashboardPage() {
   }
 
   return (
-    <div className="container">
+    <div className="container pb-40">
       {/* Current challanges */}
       <div>
         <h2 className="mb-9 text-center text-2xl font-bold">
