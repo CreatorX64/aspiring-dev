@@ -182,11 +182,11 @@ export default function ChallengeDetailsPage() {
 
         <h2 className="mt-14 text-xl font-bold">Challenge entry history</h2>
 
-        <p className="mt-4">Hover over an entry to see its full message.</p>
-
         <div className="mt-7">
           {entries_count === 0 ? (
-            <p>You haven't submitted any entries yet.</p>
+            <p className="text-slate-400">
+              You haven't submitted any entries yet.
+            </p>
           ) : (
             <ul>
               {entries.map((entry) => (
@@ -213,34 +213,41 @@ export default function ChallengeDetailsPage() {
         contentLabel="Add new challenge entry"
       >
         <div className="min-w-[500px] px-10 py-8 font-brand">
-          <h2 className="mb-8 font-brand text-2xl font-extrabold">
-            Add new challenge entry
-          </h2>
+          {errorEntry ? (
+            <ErrorMessage error={errorEntry} className="py-0" />
+          ) : (
+            <>
+              <h2 className="mb-8 font-brand text-2xl font-extrabold">
+                Add new challenge entry
+              </h2>
 
-          <form className="font-brand" onSubmit={handleModalSubmit}>
-            <label htmlFor="message" className="form-label">
-              Entry message
-            </label>
-            <input
-              type="text"
-              name="message"
-              id="message"
-              className="form-input"
-              placeholder="Today, I coded a new feature for my React app..."
-              value={modalMessage}
-              onChange={handleModalMessageChange}
-              required
-            />
+              <form className="font-brand" onSubmit={handleModalSubmit}>
+                <label htmlFor="message" className="form-label">
+                  Entry message
+                </label>
+                <input
+                  type="text"
+                  name="message"
+                  id="message"
+                  className="form-input"
+                  placeholder="Today, I coded a new feature for my React app..."
+                  value={modalMessage}
+                  onChange={handleModalMessageChange}
+                  autoFocus
+                  required
+                />
 
-            <div className="mt-9 flex gap-4">
-              <button className="btn">
-                {loadingEntry ? "Submitting..." : "Submit entry"}
-              </button>
-              <button type="button" onClick={closeModal}>
-                Cancel
-              </button>
-            </div>
-          </form>
+                <div className="mt-9 flex gap-4">
+                  <button className="btn" disabled={loadingEntry}>
+                    {loadingEntry ? "Submitting..." : "Submit entry"}
+                  </button>
+                  <button type="button" onClick={closeModal}>
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </>
+          )}
         </div>
       </Modal>
     </div>
