@@ -10,7 +10,8 @@ import Modal from "react-modal";
 import {
   GET_CHALLENGE_BY_ID,
   CREATE_CHALLENGE_ENTRY,
-  DELETE_CHALLENGE
+  DELETE_CHALLENGE,
+  GET_CHALLENGES
 } from "../lib/queries";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { EntryLine } from "../components/EntryLine";
@@ -35,6 +36,9 @@ export function ChallengeDetailsPage() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+
+  // https://github.com/apollographql/apollo-client/issues/5419#issuecomment-973154976
+  useQuery(GET_CHALLENGES);
 
   const {
     loading: loadingChallenge,
